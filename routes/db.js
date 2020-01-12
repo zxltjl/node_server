@@ -16,8 +16,7 @@ exports.base = (sql, data, callback) => {
     // 执行数据库操作
     connection.query(sql, data, (err, rows, fields) => {
         if (err) throw err;
-        // callback(rows);
-        callback.apply(null, arguments)
+        callback(rows);
     });
     // 关闭数据库
     connection.end();
