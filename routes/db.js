@@ -19,5 +19,6 @@ exports.base = (sql, data, callback) => {
         callback(rows);
     });
     // 关闭数据库
+    
     connection.end();
 }

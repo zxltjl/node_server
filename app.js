@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //cors跨域白名单
 app.use(cors({
   origin:['http://localhost:8888'],
-  methods:['GET','POST'],
+  methods:['GET','POST','DELETE'],
   alloweHeaders:['Conten-Type', 'Authorization']
 }));
 //跨域问题解决方面
@@ -35,11 +35,10 @@ app.all('*', function(req, res, next) {
   res.header("Content-Type", "application/json;charset=utf-8");  
   next();  
 }); 
-
 //配置路由
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/login', loginRouter);
+app.use('/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
