@@ -5,9 +5,15 @@ var db = require('./db.js');
 //获取用户信息
 router.get('/index', function(req, res, next) {
   let att = req.query;
-  var sql_count = "SELECT count(*) as total FROM user_list";
   var pageSize = (att.page - 1) * att.pageSize;
-  var sql_data = "SELECT * FROM user_list limit " + pageSize + " , " + att.pageSize;
+  let condition = '';
+  if(att.name){
+    condition="where username='"+att.name+"'"
+  }else{
+    condition = '' 
+  }
+  var sql_count = "SELECT count(*) as total FROM user_list "+condition;
+  var sql_data = "SELECT * FROM user_list "+condition+" limit " + pageSize + " , " + att.pageSize;
   db.base(sql_count,{},(result)=>{
     let obj = result[0]
     let meta = obj
@@ -37,7 +43,16 @@ router.post('/add', function(req, res, next) {
     res.json('新增成功');
   })
 });
-
+//编辑
+router.put('/:id', function(req, res, next) {
+  var id = req.params.id;
+  var data = req.body;
+  var edit_data = "username='"+data.username+"',phone='"+data.phone+"',address='"+data.address+"',email='"+data.email+"'";
+  var sql = "UPDATE user_list set "+edit_data+" where id=" + id;
+  db.base(sql,{},()=>{
+    res.json('编辑成功');
+  })
+});
 
 
 module.exports = router;

@@ -22,8 +22,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //cors跨域白名单
 app.use(cors({
-  origin:['http://localhost:8888'],
-  methods:['GET','POST','DELETE'],
+  origin:['http://localhost:8888','http://localhost:8080'],
+  methods:['GET','POST','DELETE','PUT'],
   alloweHeaders:['Conten-Type', 'Authorization']
 }));
 //跨域问题解决方面
