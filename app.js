@@ -1,13 +1,15 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');//cookir解析工具
+var cookieParser = require('cookie-parser');//cookie解析工具
 var logger = require('morgan');
-
+const crypto = require('./routes/models/crypto');
 //路由信息
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var accountRouter = require('./routes/account');
+
 var cors = require('cors');  
 var app = express();
 
@@ -39,7 +41,7 @@ app.all('*', function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/user', usersRouter);
-
+app.use('/account',accountRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
